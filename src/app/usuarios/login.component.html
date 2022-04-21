@@ -1,0 +1,31 @@
+<div>
+  <mat-card class="card">
+    <mat-card-header >
+      <mat-card-title>Iniciar sesión</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form method="post">
+        <div class="form-group row">
+          <mat-form-field appearance="outline">
+            <mat-label>Usuario</mat-label>
+            <input matInput [(ngModel)]="usuario.username" [ngModelOptions]="{standalone: true}" autofocus required>
+            <mat-error *ngIf="usuario.username == '' || usuario.username == null">El campo usuario es requerido</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-group row">
+          <mat-form-field appearance="outline">
+            <mat-label>Usuario</mat-label>
+            <input matInput type="password" [(ngModel)]="usuario.password" [ngModelOptions]="{standalone: true}" required>
+            <mat-error *ngIf="usuario.password == '' || usuario.password == null">El campo contraseña es requerido</mat-error>
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-footer>
+      <mat-card-actions>
+        <!--<input  type="submit" class="btn btn-lg btn-primary btn-block" value="Login">-->
+        <button mat-raised-button color="primary" (click)="login()">Iniciar sesión</button>
+      </mat-card-actions>
+    </mat-card-footer>
+  </mat-card>
+</div>

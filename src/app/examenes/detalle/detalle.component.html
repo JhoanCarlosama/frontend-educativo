@@ -1,0 +1,32 @@
+<div mat-dialog-title>
+  <div class="row">
+    <div class="col-6">
+      <h1>Detalle examen</h1>
+    </div>
+    <div class="col-6 text-end">
+      <button mat-button mat-dialog-close><mat-icon>close</mat-icon></button>
+    </div>
+  </div>
+</div>
+<div mat-dialog-content>
+  <div *ngIf="examen">
+    <mat-list role="list">
+      <mat-list-item role="listitem"><span class="h6">Nombre: </span><span class="h5 text-primary mx-2">{{ examen.nombre }}</span></mat-list-item>
+      <mat-list-item role="listitem">
+        <span class="h6">Curso: </span>
+        <span class="h6 text-primary mx-2">{{ examen?.curso?.nombre }}</span>
+      </mat-list-item>
+      <mat-list-item role="listitem"><span class="h6">Fecha: {{ examen.fecha | date: 'dd/MM/yyyy' }}</span></mat-list-item>
+      <mat-list-item role="listitem">
+        <div class="row w-50">
+          <div class="col-6">
+            <span class="h6">Hora inicio: {{ examen.inicio }}</span>
+          </div>
+          <div class="col-6">
+            <span class="h6">Hora fin: {{ examen.fin }}</span>
+          </div>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </div>
+</div>

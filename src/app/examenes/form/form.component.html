@@ -1,0 +1,61 @@
+<div>
+  <ng-container>
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>Examen</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form #examenForm="ngForm">
+          <div class="form-group row">
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput [(ngModel)]="examen.nombre" [ngModelOptions]="{standalone: true}" required>
+              <mat-error *ngIf="examen.nombre == '' || examen.nombre == null">El campo nombre es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group row">
+            <mat-form-field appearance="outline">
+              <mat-label>Curso</mat-label>
+              <mat-select [compareWith]="comparar" [(ngModel)]="examen.curso" [ngModelOptions]="{standalone: true}" required>
+                <mat-option [value]="undefined">--- Seleccionar curso ---</mat-option>
+                <mat-option *ngFor="let curso of cursos" [value]="curso">
+                  {{ curso.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="examen.curso == undefined || examen.curso == null">El campo curso es requerido</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Fecha</mat-label>
+              <input matInput [matDatepicker]="myDatepicker" [(ngModel)]="examen.fecha" [ngModelOptions]="{standalone: true}" required>
+              <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+              <mat-datepicker #myDatepicker></mat-datepicker>
+              <mat-error *ngIf="examen.fecha == '' || examen.fecha == null">El campo fecha es requerido</mat-error>
+            </mat-form-field>
+            <div class="row">
+              <div class="col-6">
+                <mat-form-field style="width: 100%" appearance="outline">
+                  <mat-label>Hora inicio</mat-label>
+                  <input type="time" matInput [(ngModel)]="examen.inicio" [ngModelOptions]="{standalone: true}" required>
+                </mat-form-field>
+              </div>
+              <div class="col-6">
+                <mat-form-field style="width: 100%" appearance="outline">
+                  <mat-label>Hora fin</mat-label>
+                  <input type="time" matInput [(ngModel)]="examen.fin" [ngModelOptions]="{standalone: true}" required>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button (click)="cancelar()">Cancelar</button>
+        <button mat-raised-button color="primary" (click)="crear()" *ngIf="!examen.id; else elseBlock" [disabled]="!examenForm.form.valid">Crear</button>
+        <ng-template #elseBlock>
+          <button mat-raised-button color="primary" role="button" (click)="actualizar()" [disabled]="!examenForm.form.valid">Editar</button>
+        </ng-template>
+      </mat-card-actions>
+    </mat-card>
+
+  </ng-container>
+</div>

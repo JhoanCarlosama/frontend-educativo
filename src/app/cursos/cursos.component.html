@@ -1,0 +1,40 @@
+<div>
+  <ng-container>
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>Curso</mat-card-title>
+        <mat-card-subtitle>Los campos marcados con <span style="color: red">*</span> son requeridos.</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <form #cursoForm="ngForm">
+          <div class="form-group row">
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre</mat-label>
+              <input matInput [(ngModel)]="curso.nombre" [ngModelOptions]="{standalone: true}" required>
+              <mat-error *ngIf="curso.nombre == '' || curso.nombre == null">El campo nombre es requerido</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form-group row">
+            <mat-form-field appearance="outline">
+              <mat-label>Profesor</mat-label>
+              <mat-select [compareWith]="comparar" [(ngModel)]="curso.profesor" [ngModelOptions]="{standalone: true}" required>
+                <mat-option [value]="undefined">--- Seleccionar profesor ---</mat-option>
+                <mat-option *ngFor="let profesor of profesores" [value]="profesor">
+                  {{ profesor.nombre + ' ' + profesor.apellido }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="curso.profesor == undefined || curso.profesor == null">El campo profesor es requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button [routerLink]="['/profesores']">Cancelar</button>
+        <button mat-raised-button color="primary" (click)="crear()" *ngIf="!curso.id; else elseBlock" [disabled]="!cursoForm.form.valid">Crear</button>
+        <ng-template #elseBlock>
+          <button mat-raised-button color="primary" role="button" (click)="actualizar()" [disabled]="!cursoForm.form.valid">Editar</button>
+        </ng-template>
+      </mat-card-actions>
+    </mat-card>
+  </ng-container>
+</div>

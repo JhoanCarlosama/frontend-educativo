@@ -1,0 +1,55 @@
+<div>
+  <ng-container>
+    <mat-card class="card">
+      <mat-card-header>
+        <mat-card-title>Detalle curso</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row">
+          <div *ngIf="curso">
+            <mat-list role="list">
+              <mat-list-item role="listitem"><span class="h6">Nombre: </span><span class="h5 text-primary mx-2">{{ curso.nombre }}</span></mat-list-item>
+              <mat-list-item role="listitem">
+                <span class="h6">Profesor: </span>
+                <span class="h6 text-primary mx-2">{{ curso.profesor.nombre + ' ' + curso.profesor.apellido }}</span>
+              </mat-list-item>
+            </mat-list>
+          </div>
+          <div class="my-4 mx-3">
+            <button mat-raised-button color="primary" [routerLink]="['/examen/form']">Crear examen</button>
+          </div>
+          <div class="alert alert-info my-4 mx-auto w-100" *ngIf="dataSource.length == 0">
+            No hay examenes creados para el curso
+          </div>
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 mx-4" *ngIf="dataSource?.length>0" style="width: 95%">
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="nombre">
+              <th mat-header-cell *matHeaderCellDef> Nombre </th>
+              <td mat-cell *matCellDef="let element"> {{ element.nombre }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef> Acciones </th>
+              <td mat-cell *matCellDef="let element">
+                <div>
+                  <button type="button" name="ver" (click)="onDetalleExamen(element)" class="btn btn-success btn-sm mx-2">ver</button>
+                  <button type="button" name="editar" [routerLink]="['/examen/form', element.id]" class="btn btn-primary btn-sm mx-2">editar</button>
+                  <button type="button" name="eliminar" (click)="delete(element)" class="btn btn-danger btn-sm mx-2">eliminar</button>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+      <mat-card-actions></mat-card-actions>
+    </mat-card>
+
+  </ng-container>
+</div>
